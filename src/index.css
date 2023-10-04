@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  /* ../public/fonts/._IRANSansWeb_FaNum_Black.woff */
+  font-family: 'iransans';
+  src: url('./fonts/Vazir-Regular-FD.ttf');
+}
+@layer base {
+  *,
+  html,
+  body {
+    font-family: 'iransans';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .shadow-custom {
+    box-shadow: 0 4px 32px 0 #00000015;
+  }
+  .section-title::before {
+    content: '';
+    width: 6px;
+    height: 100%;
+    background: #06b6d4;
+    position: absolute;
+    top: 0;
+    border-radius: 8px;
+    right: -10%;
+  }
+  .section-title {
+    position: relative;
+  }
+  #swal2-title {
+    font-size: 16px !important;
+  }
+  .table-custom td,
+  .table-custom tr,
+  .table-custom th {
+    font-weight: normal;
+  }
+  .table-custom th {
+    color: #3f3f3f;
+    padding-bottom: 1px;
+    padding-top: 1%;
+  }
+  .table-custom td {
+    font-size: 17px;
+    color: #292929;
+  }
+  .table-custom tbody tr {
+    border-bottom: 1px solid #f1f1f1;
+    padding: 10px;
+  }
+  .table-custom thead tr {
+    padding: 10px;
+  }
+  #root {
+    overflow-x: hidden;
+  }
+  .flex-flow-wrap {
+    flex-flow: wrap !important;
+  }
+  .w-unset {
+    width: unset !important;
+  }
+  .react-loading-skeleton {
+    margin-bottom: 6px;
+  }
+  .category-desc h2 {
+    font-size: 22px;
+    color: #323232;
+    margin: 8px 0;
+  }
+  .category-desc h3 {
+    font-size: 20px;
+    color: #323232;
+    margin: 8px 0;
+  }
+  .category-desc p {
+    font-size: 16px;
+    color: #5e5e5e;
+    line-height: 1.7rem;
+  }
+  .category-desc li {
+    font-size: 16px;
+    color: #5e5e5e;
+    list-style: inside;
+    line-height: 1.7rem;
+  }
+  .form-error ul li span {
+    font-size: 14px;
+    color: #ea7171;
+  }
+  table tr:first-child th:first-child {
+    border-top-right-radius: 8px;
+  }
+  table tr:first-child th:last-child {
+    border-top-left-radius: 8px;
+  }
+
+  /* bottom-left border-radius */
+  table tbody tr:last-child td:first-child {
+    border-bottom-right-radius: 8px;
+  }
+  /* bottom-right border-radius */
+  table tbody tr:last-child td:last-child {
+    border-bottom-left-radius: 8px;
+  }
+  table tbody tr:last-child {
+    border: none;
+  }
+}

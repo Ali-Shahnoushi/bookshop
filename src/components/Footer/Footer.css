@@ -1,0 +1,18 @@
+.ketabino-footer li {
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+.social-sec-footer svg {
+  margin: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.social-sec-footer svg:hover {
+  color: #06b6d4;
+}
+.col-footer-sec li {
+  transition: all 0.2s ease;
+}
+.col-footer-sec li:hover {
+  color: #06b6d4;
+}

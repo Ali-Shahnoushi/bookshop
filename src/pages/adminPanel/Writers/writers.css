@@ -1,0 +1,15 @@
+.writer-table-body tr td.desc {
+  max-width: 600px;
+}
+.writer-table-body tr td.desc div {
+  max-width: 100%;
+  text-wrap: wrap;
+  line-height: 1.6rem;
+  text-align: right;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
