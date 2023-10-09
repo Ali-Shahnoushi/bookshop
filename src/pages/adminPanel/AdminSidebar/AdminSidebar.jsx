@@ -7,11 +7,19 @@ import {
   BiSolidCommentDetail,
   BiSolidCategory,
   BiSolidBook,
+  BiMap,
+  BiSupport,
 } from 'react-icons/bi'
-import { MdArticle } from 'react-icons/md'
-import { FaUserEdit } from 'react-icons/fa'
+import { MdArticle, MdDiscount, MdLogout } from 'react-icons/md'
+import {
+  FaUserEdit,
+  FaShoppingBasket,
+  FaHeart,
+  FaAddressCard,
+} from 'react-icons/fa'
 import { BsTranslate } from 'react-icons/bs'
 import { FiUsers } from 'react-icons/fi'
+import { IoMdNotifications } from 'react-icons/io'
 
 export default function AdminSidebar() {
   const navigate = useNavigate()
@@ -34,8 +42,8 @@ export default function AdminSidebar() {
             position: 'top-center',
             icon: 'success',
             title: result.message,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'بسیارخب',
+            showConfirmButton: false,
+            timer: 3000,
           }).then((result) => {
             if (result.isConfirmed) {
               navigate('/')
@@ -48,79 +56,151 @@ export default function AdminSidebar() {
   return (
     <div>
       <aside>
-        <h2 className="text-center text-xl text-sky-200 font-[500]">
-          <img
-            className="w-[80px] md:w-fit mb-2 sm:mb-0"
-            src="/images/logo.svg"
-          />
-        </h2>
+        <img
+          className="w-[80px] md:w-fit mb-2 sm:mb-0"
+          src="/images/logo.svg"
+        />
         <ul className="mt-8 sidebar-menu-list">
+          {authContext.userData.role == 'admin' ? (
+            <>
+              <li>
+                <NavLink to="/admin">
+                  <div className="flex gap-2 items-center">
+                    <HiHome />
+                    <span>داشبورد</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="books">
+                  <div className="flex gap-2 items-center">
+                    <BiSolidBook />
+                    <span>کتاب ها</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="categories">
+                  <div className="flex gap-2 items-center">
+                    <BiSolidCategory />
+                    <span>دسته بندی ها</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="writers">
+                  <div className="flex gap-2 items-center">
+                    <FaUserEdit />
+                    <span>نویسندگان</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="translators">
+                  <div className="flex gap-2 items-center">
+                    <BsTranslate />
+                    <span>مترجمان</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="posts">
+                  <div className="flex gap-2 items-center">
+                    <MdArticle />
+                    <span>مقالات</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="users">
+                  <div className="flex gap-2 items-center">
+                    <FiUsers />
+                    <span>کابران</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="comments">
+                  <div className="flex gap-2 items-center">
+                    <BiSolidCommentDetail />
+                    <span>نظرات</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="comments">
+                  <div className="flex gap-2 items-center">
+                    <MdDiscount />
+                    <span>کدتخفیف‌ها</span>
+                  </div>
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink to="/dashboard">
+                  <div className="flex gap-2 items-center">
+                    <HiHome />
+                    <span>داشبورد</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="orders">
+                  <div className="flex gap-2 items-center">
+                    <FaShoppingBasket />
+                    <span>سفارش‌ها</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="addresses">
+                  <div className="flex gap-2 items-center">
+                    <BiMap />
+                    <span>آدرس‌ها</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="bookmarked">
+                  <div className="flex gap-2 items-center">
+                    <FaHeart />
+                    <span>موردعلاقه‌ها</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="edit-account">
+                  <div className="flex gap-2 items-center">
+                    <FaAddressCard />
+                    <span>اطلاعات حساب‌کاربری</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="notifications">
+                  <div className="flex gap-2 items-center">
+                    <IoMdNotifications />
+                    <span>پیغام‌ها</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="tickets">
+                  <div className="flex gap-2 items-center">
+                    <BiSupport />
+                    <span>تیکت‌ پشتیبانی</span>
+                  </div>
+                </NavLink>
+              </li>
+            </>
+          )}
           <li>
-            <NavLink to="index">
-              <div className="flex gap-2 items-center">
-                <HiHome />
-                <span>داشبورد</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="books">
-              <div className="flex gap-2 items-center">
-                <BiSolidBook />
-                <span>کتاب ها</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="categories">
-              <div className="flex gap-2 items-center">
-                <BiSolidCategory />
-                <span>دسته بندی ها</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="writers">
-              <div className="flex gap-2 items-center">
-                <FaUserEdit />
-                <span>نویسندگان</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="translators">
-              <div className="flex gap-2 items-center">
-                <BsTranslate />
-                <span>مترجمان</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="posts">
-              <div className="flex gap-2 items-center">
-                <MdArticle />
-                <span>مقالات</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="users">
-              <div className="flex gap-2 items-center">
-                <FiUsers />
-                <span>کابران</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="comments">
-              <div className="flex gap-2 items-center">
-                <BiSolidCommentDetail />
-                <span>نظرات</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <button onClick={logoutUser}>خروج</button>
+            <div className="logout-btn flex gap-2 items-center">
+              <MdLogout />
+              <button onClick={logoutUser}>خروج</button>
+            </div>
           </li>
         </ul>
       </aside>

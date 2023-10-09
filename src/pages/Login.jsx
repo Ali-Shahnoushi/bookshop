@@ -73,13 +73,11 @@ export default function Login() {
             Swal.fire({
               position: 'top-center',
               icon: 'success',
-              title: `ثبت‌نام با موفقیت انجام شد`,
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'ورود به سایت',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                navigate('/')
-              }
+              title: 'ورود با موفقیت انجام شد',
+              showConfirmButton: false,
+              timer: 2000,
+            }).then(() => {
+              navigate('/')
             })
           } else if (result.error) {
             const errorText = result.message
@@ -89,7 +87,7 @@ export default function Login() {
               title: errorText,
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'تلاش مجدد',
-              timer: 3000,
+              timer: 2000,
             })
           }
         })

@@ -51,7 +51,7 @@ export default function Header({ count }) {
             />
             <div className="user flex flex-row items-end gap-4">
               {authContext.isLoggedIn ? (
-                <Link to="/dashboard/index">
+                <Link to="/dashboard">
                   <button className="bg-cyan-500 inline-block py-1 px-2 rounded-md">
                     <span className="text-white text-sm align-middle">
                       سلام{', '}

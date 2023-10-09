@@ -108,13 +108,11 @@ export default function Register() {
             Swal.fire({
               position: 'top-center',
               icon: 'success',
-              title: `ثبت‌نام با موفقیت انجام شد`,
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'ورود به سایت',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                navigate('/')
-              }
+              title: 'ثبت‌نام با موفقیت انجام شد',
+              showConfirmButton: false,
+              timer: 2000,
+            }).then(() => {
+              navigate('/')
             })
           } else if (result.error) {
             const errorText = result.errors.email

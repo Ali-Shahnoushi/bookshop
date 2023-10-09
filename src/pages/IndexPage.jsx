@@ -11,13 +11,13 @@ import LoadingProduct from '../components/LoadingProduct/LoadingProduct'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import UserCartContext from '../Context/UserCartContext'
+import useGetAllBooks from '../services/public/books/Index'
 
 export default function IndexPage() {
   const userCartContext = useContext(UserCartContext)
+  const { data: books, isLoading } = useGetAllBooks()
   const [countItemsHeader, setCountItemsHeader] = useState(0)
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(true)
-  const [books, setBooks] = useState([])
   const [allCartItems, setAllCartItems] = useState(
     JSON.parse(localStorage.getItem('cartItems')) || [],
   )
@@ -39,7 +39,7 @@ export default function IndexPage() {
       }
     })
 
-    let allBooks = books
+    let allBooks = books.data.data
 
     let filteredBookByName = allBooks.filter((book) => book.name === name)
     let cartTemp = allCartItems
@@ -59,21 +59,6 @@ export default function IndexPage() {
       JSON.parse(localStorage.getItem('cartItems')).length || 0,
     )
   }
-
-  useEffect(() => {
-    fetch('http://localhost:8000/api/book', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setBooks(data.data.data)
-        setIsLoading(false)
-      })
-  }, [])
 
   return (
     <React.Fragment>
@@ -252,7 +237,7 @@ export default function IndexPage() {
                         <LoadingProduct />
                       </SwiperSlide>
                     ))
-                : books.map((book, index) => {
+                : books.data.data.map((book, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
@@ -321,7 +306,7 @@ export default function IndexPage() {
                         <LoadingProduct />
                       </SwiperSlide>
                     ))
-                : books.map((book, index) => {
+                : books.data.data.map((book, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
@@ -390,7 +375,7 @@ export default function IndexPage() {
                         <LoadingProduct />
                       </SwiperSlide>
                     ))
-                : books.map((book, index) => {
+                : books.data.data.map((book, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
@@ -459,7 +444,7 @@ export default function IndexPage() {
                         <LoadingProduct />
                       </SwiperSlide>
                     ))
-                : books.map((book, index) => {
+                : books.data.data.map((book, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
