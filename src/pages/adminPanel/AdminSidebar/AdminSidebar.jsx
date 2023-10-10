@@ -64,7 +64,7 @@ export default function AdminSidebar() {
           {authContext.userData.role == 'admin' ? (
             <>
               <li>
-                <NavLink to="/admin">
+                <NavLink end to="/admin">
                   <div className="flex gap-2 items-center">
                     <HiHome />
                     <span>داشبورد</span>
@@ -139,7 +139,7 @@ export default function AdminSidebar() {
           ) : (
             <>
               <li>
-                <NavLink to="/dashboard">
+                <NavLink end to="/dashboard">
                   <div className="flex gap-2 items-center">
                     <HiHome />
                     <span>داشبورد</span>

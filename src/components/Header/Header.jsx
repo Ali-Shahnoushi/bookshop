@@ -32,6 +32,7 @@ export default function Header({ count }) {
       .then((data) => {
         setMainCategory(data.data)
       })
+      console.log(authContext.isLoading)
   }, [])
 
   return (
@@ -51,15 +52,27 @@ export default function Header({ count }) {
             />
             <div className="user flex flex-row items-end gap-4">
               {authContext.isLoggedIn ? (
-                <Link to="/dashboard">
-                  <button className="bg-cyan-500 inline-block py-1 px-2 rounded-md">
-                    <span className="text-white text-sm align-middle">
-                      سلام{', '}
-                      {authContext.userData.name} عزیز
-                    </span>
-                    <FiUser className="text-lg md:text-2xl mt-2 sm:mt-0 text-white inline-block" />
-                  </button>
-                </Link>
+                authContext.userData.role === 'admin' ? (
+                  <Link to="/admin">
+                    <button className="bg-cyan-500 inline-block py-1 px-2 rounded-md">
+                      <span className="text-white text-sm align-middle">
+                        سلام{', '}
+                        {authContext.userData.name} عزیز
+                      </span>
+                      <FiUser className="text-lg md:text-2xl mt-2 sm:mt-0 text-white inline-block" />
+                    </button>
+                  </Link>
+                ) : (
+                  <Link to="/dashboard">
+                    <button className="bg-cyan-500 inline-block py-1 px-2 rounded-md">
+                      <span className="text-white text-sm align-middle">
+                        سلام{', '}
+                        {authContext.userData.name} عزیز
+                      </span>
+                      <FiUser className="text-lg md:text-2xl mt-2 sm:mt-0 text-white inline-block" />
+                    </button>
+                  </Link>
+                )
               ) : (
                 <div className="flex mt-2 sm:mt-0 mr-4 md:mr-12">
                   <FiLogIn className="text-xl mr-2 text-slate-500" />

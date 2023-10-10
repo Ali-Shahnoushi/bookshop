@@ -9,8 +9,7 @@ import TabPanel from '@mui/lab/TabPanel'
 import Skeleton from 'react-loading-skeleton'
 import { BsBookmark, BsFiletypePdf, BsFillBookmarkFill } from 'react-icons/bs'
 import Swal from 'sweetalert2'
-import { BiBookAlt, BiSolidBadgeCheck } from 'react-icons/bi'
-import { HiUserCircle } from 'react-icons/hi'
+import { BiBookAlt } from 'react-icons/bi'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation } from 'swiper/modules'
 import 'swiper/css/autoplay'
@@ -412,7 +411,7 @@ export default function ProductInfo() {
                   <div className="flex flex-row-reverse justify-start gap-5 items-center">
                     <span className="text-gray-500 text-md">قیمت</span>
                     <span className="text-xl text-slate-800 font-medium ">
-                      {'10000'} {/* {bookPrice.epub}{' '} */}
+                      {bookInfos.data.price}{' '}
                       <span className="text-sm font-normal text-slate-500">
                         تومان
                       </span>
@@ -438,7 +437,7 @@ export default function ProductInfo() {
                   <div className="flex flex-row-reverse justify-start gap-5 items-center">
                     <span className="text-gray-500 text-md">قیمت</span>
                     <span className="text-xl text-slate-800 font-medium ">
-                      {'10000'} {/* {bookPrice.epub}{' '} */}
+                      {bookInfos.data.price}{' '}
                       <span className="text-sm font-normal text-slate-500">
                         تومان
                       </span>
@@ -456,25 +455,30 @@ export default function ProductInfo() {
               </div>
             </div>
             <div className="w-full w-8/12 flex flex-col gap-2 items-end justify-evenly">
-              <h2 className="text-2xl font-normal">
-                {/* {bookName} */}
-                {'sdfsdffgdfh dgh'}
-              </h2>
+              <h2 className="text-2xl font-normal">{bookInfos.data.name}</h2>
               <div className="flex flex-col gap-2 direction-rtl">
                 <div className="text-[14px] text-slate-700">
-                  نویسنده :{' '}
-                  <span>
-                    {'sdflsdjf'}
-                    {/* {bookWriter} */}
-                  </span>
+                  نویسنده : <span>{bookInfos.data.writer.name}</span>
                 </div>
-                <div className="text-[14px] text-slate-700">
-                  مترجم :{' '}
-                  <span>
-                    {/* {bookTranslator} */}
-                    {'skfjsdflgjdfg'}
-                  </span>
-                </div>
+                {bookInfos.data.translators.length > 0 && (
+                  <div className="text-[14px] text-slate-700">
+                    مترجم :{' '}
+                    <span>
+                      {bookInfos.data.translators.map((translator, id) => {
+                        if (id == bookInfos.data.translators.length - 1) {
+                          return <span key={id}>{translator.name}</span>
+                        } else {
+                          return (
+                            <span key={id}>
+                              {translator.name}
+                              {' - '}
+                            </span>
+                          )
+                        }
+                      })}
+                    </span>
+                  </div>
+                )}
                 <div className="text-[14px] text-slate-700">
                   نشر :{' '}
                   <span>
@@ -485,20 +489,20 @@ export default function ProductInfo() {
                 </div>
                 <div className="text-[14px] text-slate-700">
                   موضوع :{' '}
-                  {/* <span>
-                    {bookTags.map((tag, index) => {
+                  <span>
+                    {bookInfos.data.categories.map((category, index) => {
                       return (
                         <a
-                          href={`category/${tag}`}
+                          href={`category/${category.url}`}
                           key={index}
                           className="py-[3px] rounded-md mr-1 text-[12px] text-white px-[6px] bg-teal-500"
                         >
-                          {' '}
-                          {tag}{' '}
+                          {category.name}
+                          {'‌'}
                         </a>
                       )
                     })}
-                  </span> */}
+                  </span>
                 </div>
               </div>
               <div className="w-full flex flex-row justify-end gap-4">
@@ -537,16 +541,10 @@ export default function ProductInfo() {
             </div>
           </div>
           <div className="w-full p-14 sm:p-0 md:w-4/12">
-            <div className="group relative">
+            <div className="flex justify-center">
               <img
-                className="w-full select-none transition duration-500 opacity-100 group-hover:opacity-0"
-                src="../../public/images/product/1.jpg"
-                // src={bookCover[0]}
-              />
-              <img
-                className="w-full select-none top-0 right-0 absolute transition duration-500 opacity-0 group-hover:opacity-100"
-                src="../../public/images/product/2.jpg"
-                // src={bookCover[1]}
+                className="select-none w-[250px]"
+                src={bookInfos.data.photo}
               />
             </div>
           </div>
@@ -618,9 +616,11 @@ export default function ProductInfo() {
                       <tr>
                         <th>نویسنده</th>
                       </tr>
-                      <tr>
-                        <th>مترجم</th>
-                      </tr>
+                      {bookInfos.data.translators.length > 0 && (
+                        <tr>
+                          <th>مترجم</th>
+                        </tr>
+                      )}
                       <tr>
                         <th>سال چاپ</th>
                       </tr>
@@ -631,7 +631,7 @@ export default function ProductInfo() {
                         <th>تعداد صفحات</th>
                       </tr>
                       <tr>
-                        <th>وزن</th>
+                        <th>موجودی</th>
                       </tr>
                       <tr>
                         <th>نوع جلد</th>
@@ -640,36 +640,58 @@ export default function ProductInfo() {
                         <th>اندازه</th>
                       </tr>
                     </thead>
-                    {/* <tbody className="text-right grow flex flex-col justify-center">
+                    <tbody className="text-right grow flex flex-col justify-center">
                       <tr>
-                        <td>{bookInfos.name}</td>
+                        <td>{bookInfos.data.name}</td>
                       </tr>
                       <tr>
-                        <td>{bookInfos.writer}</td>
+                        <td>{bookInfos.data.writer.name}</td>
+                      </tr>
+                      {bookInfos.data.translators.length > 0 && (
+                        <tr>
+                          <div>
+                            <span>
+                              {bookInfos.data.translators.map(
+                                (translator, id) => {
+                                  if (
+                                    id ==
+                                    bookInfos.data.translators.length - 1
+                                  ) {
+                                    return (
+                                      <span key={id}>{translator.name}</span>
+                                    )
+                                  } else {
+                                    return (
+                                      <span key={id}>
+                                        {translator.name}
+                                        {' - '}
+                                      </span>
+                                    )
+                                  }
+                                },
+                              )}
+                            </span>
+                          </div>
+                        </tr>
+                      )}
+                      <tr>
+                        <td>{bookInfos.data.publish_year}</td>
                       </tr>
                       <tr>
-                        <td>{bookInfos.translator}</td>
+                        <td>{bookInfos.data.print_series}</td>
                       </tr>
                       <tr>
-                        <td>{bookDetails.printYear}</td>
+                        <td>{bookInfos.data.pages}</td>
                       </tr>
                       <tr>
-                        <td>{bookDetails.pubCount}</td>
+                        <td>{bookInfos.data.count}</td>
                       </tr>
                       <tr>
-                        <td>{bookDetails.pagesCount}</td>
+                        <td>{bookInfos.data.book_cover_type}</td>
                       </tr>
-                      <tr>
-                        <td>{bookDetails.weight}</td>
-                      </tr>
-                      <tr>
-                        <td>{bookDetails.coverMaterial}</td>
-                      </tr>
-                      <tr>
-                        <td>{bookDetails.size}</td>
-                      </tr>
-                    </tbody> */}
-                    <h2>محتوای جدول</h2>
+                      <tr>{/* <td>{bookDetails.coverMaterial}</td> */}</tr>
+                      <tr>{/* <td>{bookDetails.size}</td> */}</tr>
+                    </tbody>
                   </table>
                 </div>
               </TabPanel>

@@ -2,26 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { AiTwotoneDelete } from 'react-icons/ai'
 import { MdModeEditOutline } from 'react-icons/md'
 import Skeleton from 'react-loading-skeleton'
+import useGetAllBooks from '../../../services/public/books/getAllBooks'
 
 export default function () {
-  const [books, setBooks] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  // const [books, setBooks] = useState([])
+  // const [isLoading, setIsLoading] = useState(true)
   const persian = new Intl.NumberFormat('fa')
 
-  useEffect(() => {
-    fetch('http://localhost:8000/api/book', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setBooks(data.data.data)
-        setIsLoading(false)
-      })
-  }, [])
+  const { data: books, isLoading } = useGetAllBooks()
+
   return (
     <div>
       <h2 className="text-2xl font-bold my-4 text-slate-700">لیست کتاب ها</h2>
@@ -42,7 +31,7 @@ export default function () {
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-hidden">
-                {books.length > 0 && (
+                {books.data.data.length > 0 && (
                   <table className="min-w-full text-center text-sm font-regular">
                     <thead className="border-b text-white bg-slate-600 border-neutral-500 text-neutral-800">
                       <tr>
@@ -70,7 +59,7 @@ export default function () {
                       </tr>
                     </thead>
                     <tbody>
-                      {books.map((book, index) => (
+                      {books.data.data.map((book, index) => (
                         <tr
                           key={index}
                           className="border-b border-neutral-500 bg-white"

@@ -11,7 +11,7 @@ import LoadingProduct from '../components/LoadingProduct/LoadingProduct'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import UserCartContext from '../Context/UserCartContext'
-import useGetAllBooks from '../services/public/books/Index'
+import useGetAllBooks from '../services/public/books/getAllBooks'
 
 export default function IndexPage() {
   const userCartContext = useContext(UserCartContext)
@@ -241,6 +241,7 @@ export default function IndexPage() {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
+                          id={book.id}
                           onAdd={addToCart}
                           cover={book.photo}
                           writer={book.writer.name}
@@ -310,6 +311,7 @@ export default function IndexPage() {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
+                          id={book.id}
                           onAdd={addToCart}
                           cover={book.photo}
                           writer={book.writer.name}
@@ -379,6 +381,7 @@ export default function IndexPage() {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
+                          id={book.id}
                           onAdd={addToCart}
                           cover={book.photo}
                           writer={book.writer.name}
@@ -448,6 +451,7 @@ export default function IndexPage() {
                     return (
                       <SwiperSlide key={index}>
                         <ProductSlide
+                          id={book.id}
                           onAdd={addToCart}
                           cover={book.photo}
                           writer={book.writer.name}

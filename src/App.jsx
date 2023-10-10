@@ -8,17 +8,20 @@ export default function App() {
   const [userData, setUserData] = useState({})
   const [token, setToken] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const login = useCallback((userData, token) => {
     setToken(token)
     setIsLoggedIn(true)
     setUserData(userData)
+    setIsLoading(false)
     localStorage.setItem('user', JSON.stringify({ token }))
   }, [])
 
   const logout = useCallback(() => {
     setToken(null)
     setIsLoggedIn(false)
+    setIsLoading(true)
     localStorage.removeItem('user')
   }, [])
 
@@ -34,6 +37,7 @@ export default function App() {
         .then((res) => res.json())
         .then((data) => {
           setIsLoggedIn(true)
+          setIsLoading(false)
           setUserData(data.data)
         })
     }
@@ -44,6 +48,7 @@ export default function App() {
       value={{
         userData,
         isLoggedIn,
+        isLoading,
         token,
         login,
         logout,

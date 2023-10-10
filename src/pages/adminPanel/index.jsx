@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   const [currentTime, setCurrentTime] = useState()
   const navigate = useNavigate()
   const authContext = useContext(AuthContext)
-  const date = new Date() // current Gregorian date
+  const date = new Date()
   let shamsiDateReal = new Intl.DateTimeFormat('fa-IR', {
     dateStyle: 'full',
   }).format(date)
@@ -34,7 +34,7 @@ export default function AdminDashboard() {
 
     setInterval(() => {
       const persianDate = moment().format('jYYYY/jM/jD')
-      setCurrentDate(persianDate)
+      setCurrentTime(persianDate)
     }, 1000)
 
     return () => clearInterval(interval)
@@ -42,9 +42,12 @@ export default function AdminDashboard() {
 
   return (
     <React.Fragment>
-      {authContext.isLoggedIn ? (
-      <div>
-        {authContext.userData.role ? (
+      {authContext.isLoading ? (
+        <div className="h-screen bg-sky-800 flex items-center justify-center">
+          <span className="loader-spinner"></span>
+        </div>
+      ) : authContext.isLoggedIn ? (
+        <div>
           <div dir="rtl" className="flex  overflow-hidden h-[100vh]">
             <div className="sidebar-container w-full sm:w-4/12 md:w-3/12 lg:w-1/6 bg-sky-800 h-[150px] sm:h-screen p-5">
               <AdminSidebar />
@@ -72,14 +75,10 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
-        ) : (
-          <div className="h-screen bg-sky-800 flex items-center justify-center">
-            <span className="loader-spinner"></span>
-          </div>
-        )}
-      </div>
-
-      ) : navigate('/')}
+        </div>
+      ) : (
+        navigate('/')
+      )}
     </React.Fragment>
   )
 }

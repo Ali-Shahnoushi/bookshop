@@ -4,6 +4,7 @@ const AuthContext = createContext({
   isLoggedIn: false,
   userData: null,
   token: null,
+  isLoading:null,
   login: () => {},
   logout: () => {},
 })

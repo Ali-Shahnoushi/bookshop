@@ -6,7 +6,6 @@ import Swal from 'sweetalert2'
 export default function Login() {
   const navigate = useNavigate()
   const authContext = useContext(AuthContext)
-  console.log(authContext)
 
   const [formData, setFormData] = useState({
     email: '',
