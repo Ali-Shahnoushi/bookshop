@@ -2,8 +2,11 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthContext from '../Context/AuthContext'
 import Swal from 'sweetalert2'
+import useLogin from 'src/services/public/auth/login'
 
 export default function Login() {
+  const { mutate, isLoading } = useLogin()
+
   const navigate = useNavigate()
   const authContext = useContext(AuthContext)
 
@@ -57,39 +60,64 @@ export default function Login() {
         password: formData.password,
       }
 
-      fetch('http://localhost:8000/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      mutate(userFromData, {
+        onSuccess: (result) => {
+          authContext.login(result.data.user, result.data.token)
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'ورود با موفقیت انجام شد',
+            showConfirmButton: false,
+            timer: 2000,
+          })
+          navigate('/')
         },
-        body: JSON.stringify(userFromData),
+        onError: (result) => {
+          const errorText = result.message
+          Swal.fire({
+            position: 'top-center',
+            icon: 'error',
+            title: errorText,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'تلاش مجدد',
+            timer: 2000,
+          })
+        },
       })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.success) {
-            console.log(result)
-            authContext.login(result.data.user, result.data.token)
-            Swal.fire({
-              position: 'top-center',
-              icon: 'success',
-              title: 'ورود با موفقیت انجام شد',
-              showConfirmButton: false,
-              timer: 2000,
-            }).then(() => {
-              navigate('/')
-            })
-          } else if (result.error) {
-            const errorText = result.message
-            Swal.fire({
-              position: 'top-center',
-              icon: 'error',
-              title: errorText,
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'تلاش مجدد',
-              timer: 2000,
-            })
-          }
-        })
+
+      //   fetch('http://localhost:8000/api/login', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify(userFromData),
+      //   })
+      //     .then((res) => res.json())
+      //     .then((result) => {
+      //       if (result.success) {
+      //         console.log(result)
+      //         authContext.login(result.data.user, result.data.token)
+      //         Swal.fire({
+      //           position: 'top-center',
+      //           icon: 'success',
+      //           title: 'ورود با موفقیت انجام شد',
+      //           showConfirmButton: false,
+      //           timer: 2000,
+      //         }).then(() => {
+      //           navigate('/')
+      //         })
+      //       } else if (result.error) {
+      //         const errorText = result.message
+      //         Swal.fire({
+      //           position: 'top-center',
+      //           icon: 'error',
+      //           title: errorText,
+      //           confirmButtonColor: '#3085d6',
+      //           confirmButtonText: 'تلاش مجدد',
+      //           timer: 2000,
+      //         })
+      //       }
+      //     })
     }
   }
 

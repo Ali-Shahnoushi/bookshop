@@ -28,7 +28,7 @@ export default function App() {
   useEffect(() => {
     const userLocalStorageData = JSON.parse(localStorage.getItem('user'))
     if (userLocalStorageData) {
-      fetch('http://localhost:8000/api/user/get/info', {
+      fetch('https://127.0.0.1:8000/api/user/get/info', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${userLocalStorageData.token}`,

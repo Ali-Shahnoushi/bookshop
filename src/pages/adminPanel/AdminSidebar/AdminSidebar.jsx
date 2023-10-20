@@ -45,7 +45,8 @@ export default function AdminSidebar() {
             showConfirmButton: false,
             timer: 3000,
           }).then((result) => {
-            if (result.isConfirmed) {
+            console.log(result)
+            if (!result.isConfirmed) {
               navigate('/')
             }
           })
@@ -56,10 +57,12 @@ export default function AdminSidebar() {
   return (
     <div>
       <aside>
-        <img
-          className="w-[80px] md:w-fit mb-2 sm:mb-0"
-          src="/images/logo.svg"
-        />
+        <NavLink to="/">
+          <img
+            className="w-[80px] md:w-fit mb-2 sm:mb-0"
+            src="/images/logo.svg"
+          />
+        </NavLink>
         <ul className="mt-8 sidebar-menu-list">
           {authContext.userData.role == 'admin' ? (
             <>
@@ -128,7 +131,7 @@ export default function AdminSidebar() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="comments">
+                <NavLink to="discounts">
                   <div className="flex gap-2 items-center">
                     <MdDiscount />
                     <span>کدتخفیف‌ها</span>

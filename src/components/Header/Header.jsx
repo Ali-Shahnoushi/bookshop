@@ -13,10 +13,9 @@ import { Link } from 'react-router-dom'
 import AuthContext from '../../Context/AuthContext'
 import UserCartContext from '../../Context/UserCartContext'
 
-export default function Header({ count }) {
+export default function Header({countItemsHeader}) {
   const authContext = useContext(AuthContext)
   const userCartContext = useContext(UserCartContext)
-
   const [showSideMenu, setshowSideMenu] = useState(false)
   const [showBookLists, setShowBookLists] = useState(false)
   const [mainCategory, setMainCategory] = useState([])
@@ -32,12 +31,13 @@ export default function Header({ count }) {
       .then((data) => {
         setMainCategory(data.data)
       })
-      console.log(authContext.isLoading)
+    console.log(authContext.isLoading)
   }, [])
 
   return (
     <React.Fragment>
       {/* desktop header */}
+
       <div className="w-full h-[150px] shadow-lg p-2">
         <div className="container mx-auto">
           <div className="w-full p-2 flex flex-col sm:flex-row-reverse justify-between items-center">
@@ -126,7 +126,9 @@ export default function Header({ count }) {
                                       key={index}
                                       className="text-[13px] text-gray-600"
                                     >
-                                      <Link to={`/category/${cat.url}`}>
+                                      <Link
+                                        to={`/category/${mainCat.url}/${cat.url}`}
+                                      >
                                         {cat.name}
                                       </Link>
                                     </li>
@@ -157,6 +159,7 @@ export default function Header({ count }) {
             </ul>
           </div>
         </div>
+        <div></div>
       </div>
 
       {/* mobile header */}

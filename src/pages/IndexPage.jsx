@@ -12,8 +12,10 @@ import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import UserCartContext from '../Context/UserCartContext'
 import useGetAllBooks from '../services/public/books/getAllBooks'
+import LoadingBar from 'react-top-loading-bar'
 
 export default function IndexPage() {
+  const [progress, setProgress] = useState(0)
   const userCartContext = useContext(UserCartContext)
   const { data: books, isLoading } = useGetAllBooks()
   const [countItemsHeader, setCountItemsHeader] = useState(0)
@@ -21,6 +23,13 @@ export default function IndexPage() {
   const [allCartItems, setAllCartItems] = useState(
     JSON.parse(localStorage.getItem('cartItems')) || [],
   )
+  console.log(books)
+  useEffect(() => {
+    setProgress(20)
+    setTimeout(() => {
+      setProgress(100)
+    }, 500)
+  }, [isLoading])
 
   const addToCart = (name) => {
     Swal.fire({
@@ -62,7 +71,16 @@ export default function IndexPage() {
 
   return (
     <React.Fragment>
-      <Header countItems={countItemsHeader} />
+      <Header />
+      <div>
+        <LoadingBar
+          color="#06B6D4"
+          progress={progress}
+          height={4}
+          loaderSpeed={700}
+          onLoaderFinished={() => setProgress(0)}
+        />
+      </div>
       {/* Header banner */}
       <div className="w-full flex justify-center bg-teal-600 h-[400px]">
         <div className="w-1/2 flex flex-col-reverse md:flex-row md:justify-between gap-4">

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import axios from '../../../libs/axios'
+import axios from '/src/libs/axios'
 
 async function index() {
   const resp = await axios.get('/book')

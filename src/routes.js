@@ -26,11 +26,13 @@ import Tickets from './pages/adminPanel/CustomerPanel/Tickets/Tickets'
 import EditAccount from './pages/adminPanel/CustomerPanel/EditAccount/EditAccount'
 import Bookmarked from './pages/adminPanel/CustomerPanel/Bookmarked/Bookmarked'
 import AdminLayout from './components/Admin/AdminLayout'
+import DIscounts from './pages/adminPanel/Discounts/DIscounts'
 
 const routes = [
   { path: '/', Component: IndexPage },
   { path: '/product/:productID', Component: ProductInfo },
   { path: '/category/:categoryName', Component: Category },
+  { path: '/category/:categoryName/:subCategory', Component: Category },
   { path: '/Register', Component: Register },
   { path: '/Login', Component: Login },
   { path: '/article/:articleID', Component: ArticleInfo },
@@ -61,6 +63,7 @@ const routes = [
       { path: 'books', Component: Books },
       { path: 'posts', Component: Posts },
       { path: 'comments', Component: Comments },
+      { path: 'discounts', Component: DIscounts },
       { path: 'categories', Component: Categories },
       { path: 'writers', Component: Writers },
       { path: 'translators', Component: Translators },
