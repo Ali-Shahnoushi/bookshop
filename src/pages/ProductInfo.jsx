@@ -30,14 +30,11 @@ import LoadingBar from 'react-top-loading-bar'
 export default function ProductInfo() {
   const navigate = useNavigate()
 
-  const [relatedBooks, setRelatedBooks] = useState([])
-  const [currentWriterBooks, setCurrentWriterBooks] = useState([])
   const [progress, setProgress] = useState(0)
   const [tabValue, setTabValue] = useState('1')
   const [isBookmarked, setBookmarked] = useState(false)
   // const [bookInfo, setBookInfo] = useState({})
   const [showMore, setShowMore] = useState(false)
-  const [countItemsHeader, setCountItemsHeader] = useState(0)
   const [allCartItems, setAllCartItems] = useState(
     JSON.parse(localStorage.getItem('cartItems')) || [],
   )
@@ -55,8 +52,6 @@ export default function ProductInfo() {
   // const [htmlTemplate, setHtmlTemplate] = useState(
   //   <React.Fragment></React.Fragment>,
   // )
-
-  const persian = new Intl.NumberFormat('fa')
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue)
@@ -108,10 +103,6 @@ export default function ProductInfo() {
     let jsonString = JSON.stringify(allCartItems)
 
     localStorage.setItem('cartItems', jsonString)
-
-    setCountItemsHeader(
-      JSON.parse(localStorage.getItem('cartItems')).length || 0,
-    )
   }
 
   useEffect(() => {
