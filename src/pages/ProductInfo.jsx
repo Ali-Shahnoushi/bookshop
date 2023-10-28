@@ -367,7 +367,7 @@ export default function ProductInfo() {
               {/* Details Tab */}
               <TabPanel value="2">
                 <div className="w-full p-3 md:w-8/12 mx-auto direction-rtl">
-                  <table class="table-fixed table-custom flex flex-row gap-0 md:gap-[150px]">
+                  <table className="table-fixed table-custom flex flex-row gap-0 md:gap-[150px]">
                     <thead className="text-right flex flex-col justify-center">
                       <tr>
                         <th>نام کتاب</th>
@@ -501,7 +501,7 @@ export default function ProductInfo() {
                         ></textarea>
                       </div>
                       <button
-                        class="px-4 mb-8 py-2 bg-emerald-500 text-sm text-white rounded-full"
+                        className="px-4 mb-8 py-2 bg-emerald-500 text-sm text-white rounded-full"
                         type="submit"
                       >
                         ارسال نظر
@@ -597,7 +597,7 @@ export default function ProductInfo() {
                 slidesPerView={1}
                 navigation
               >
-                {relatedBooks.map((book, index) => (
+                {books.map((book, index) => (
                   <SwiperSlide key={index}>
                     <ProductSlide
                       // cover={book.cover}
@@ -655,7 +655,7 @@ export default function ProductInfo() {
                 slidesPerView={1}
                 navigation
               >
-                {currentWriterBooks.map((book, index) => (
+                {books.map((book, index) => (
                   <SwiperSlide key={index}>
                     <ProductSlide
                       // cover={book.cover}
