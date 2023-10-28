@@ -1,11 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
-import axios from '/src/libs/axios'
+import axios from '../../../libs/axios'
 
-async function getUserInfo() {
-  const resp = await axios.get('/user/get/info')
-  return resp.data
+async function getUserInfo(userToken) {
+  const resp = await axios.get('/user/get/info', {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  })
+
+  return resp.data.data
 }
 
-export default function useGetUserInfo() {
-  return useQuery(['books'], getUserInfo)
+export default function useGetUserInfo(userToken) {
+  return useQuery(['userInfo', userToken], () => getUserInfo(userToken))
 }

@@ -7,5 +7,5 @@ async function show(id) {
 }
 
 export default function useGetOneBook(id) {
-  return useQuery(['books',id], ()=>show(id))
+  return useQuery(['books', id], () => show(id))
 }
