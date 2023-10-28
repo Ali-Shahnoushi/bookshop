@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import useLogin from 'src/services/public/auth/login'
 
 export default function Login() {
-  const { mutate, isLoading } = useLogin()
+  const { mutate } = useLogin()
 
   const navigate = useNavigate()
   const authContext = useContext(AuthContext)
@@ -23,7 +23,7 @@ export default function Login() {
     })
   }
 
-  const registerUser = (event) => {
+  const LoginUser = (event) => {
     event.preventDefault()
 
     const isValidEmail = (email) => {
@@ -62,6 +62,9 @@ export default function Login() {
 
       mutate(userFromData, {
         onSuccess: (result) => {
+          console.log(result)
+          console.log(result.data.user)
+          console.log('user token =>' + result.data.token)
           authContext.login(result.data.user, result.data.token)
           Swal.fire({
             position: 'top-center',
@@ -84,40 +87,6 @@ export default function Login() {
           })
         },
       })
-
-      //   fetch('http://localhost:8000/api/login', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify(userFromData),
-      //   })
-      //     .then((res) => res.json())
-      //     .then((result) => {
-      //       if (result.success) {
-      //         console.log(result)
-      //         authContext.login(result.data.user, result.data.token)
-      //         Swal.fire({
-      //           position: 'top-center',
-      //           icon: 'success',
-      //           title: 'ورود با موفقیت انجام شد',
-      //           showConfirmButton: false,
-      //           timer: 2000,
-      //         }).then(() => {
-      //           navigate('/')
-      //         })
-      //       } else if (result.error) {
-      //         const errorText = result.message
-      //         Swal.fire({
-      //           position: 'top-center',
-      //           icon: 'error',
-      //           title: errorText,
-      //           confirmButtonColor: '#3085d6',
-      //           confirmButtonText: 'تلاش مجدد',
-      //           timer: 2000,
-      //         })
-      //       }
-      //     })
     }
   }
 
@@ -180,7 +149,7 @@ export default function Login() {
             <div className="mt-5 text-center">
               <button
                 onClick={(event) => {
-                  registerUser(event)
+                  LoginUser(event)
                 }}
                 className="bg-green-500 rounded-md text-white p-2 px-6"
               >
